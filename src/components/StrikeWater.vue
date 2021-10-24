@@ -20,30 +20,25 @@
       <input type="number" id="ratio" v-model="ratio" step=".1">
     </div>
     <div>
-      {{ message }}
-    </div>
-    <div>
-      <button v-on:click="calctemp">Calculate Temperature</button>
+      Strike water temperature is {{ strikeWater }}
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'ABVfromSGandBrix',
-  methods: {
-    calctemp() {
-      const temp = (0.2 / ratio.value * (target.value - malt.value) + Number(target.value)).toFixed(1);
-      this.message = 'Strike water temperature is ' + temp;
-    }
-  },
+  name: 'StrikeWater',
   data() {
     return {
       malt: 55,
       target: 152,
-      ratio: 1.4,
-      message: 'Enter parameters then click below'
+      ratio: 1.4
     }
   },
+  computed: {
+    strikeWater() {
+      return (0.2 / this.ratio * (this.target - this.malt) + Number(this.target)).toFixed(1);
+    }
+  }
 }
 </script>

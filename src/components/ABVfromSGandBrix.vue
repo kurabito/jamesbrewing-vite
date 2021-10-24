@@ -14,10 +14,7 @@
       <input type="number" id="brix" v-model="brix" step=".1">
     </p>
     <p>
-      {{ message }}
-    </p>
-    <p>
-      <button v-on:click="calcabv">Calculate ABV</button>
+      The ABV is {{ abv }}%
     </p>
   </div>
 </template>
@@ -25,12 +22,6 @@
 <script>
 export default {
   name: 'ABVfromSGandBrix',
-  methods: {
-    calcabv() {
-      const abv = (1.646 * brix.value - 2.703 * (145 - 145 / sg.value)-1.794).toFixed(1);
-      this.message = 'The ABV is ' + abv + '%';
-    }
-  },
   data() {
     return {
       sg: 1.01,
@@ -38,5 +29,10 @@ export default {
       message: 'Enter gravity and brix then click below'
     }
   },
+  computed: {
+    abv() {
+      return (1.646 * this.brix - 2.703 * (145 - 145 / this.sg) - 1.794).toFixed(1);
+    }
+  }
 }
 </script>
